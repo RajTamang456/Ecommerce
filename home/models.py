@@ -15,6 +15,7 @@ class Slider(models.Model):
     description = models.TextField()
     status = models.CharField(choices = STATUS,max_length = 200)
 
+
     def __str__(self):
         return self.name
 
@@ -52,6 +53,11 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+
+
 
 
 
