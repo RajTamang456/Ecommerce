@@ -7,4 +7,7 @@ from .views import *
 urlpatterns = [
     path('', HomeView.as_view(), name = 'home'),
     path('category/<slug>', CategoryItemView.as_view(), name = 'category'),
+    path('item_detail/<slug>', ItemDetailView.as_view(), name='item_detail'),
+
+    path('search', ItemSearchView.as_view(), name = 'search'),
 ]
