@@ -10,21 +10,21 @@ class Category(models.Model):
         return self.name
 
 class Slider(models.Model):
-    name = models.CharField(max_length = 200)
-    image = models.ImageField(upload_to = 'media')
+    name = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='media')
     description = models.TextField()
-    status = models.CharField(choices = STATUS,max_length = 200)
+    status = models.CharField(choices=STATUS, max_length=200)
 
 
     def __str__(self):
         return self.name
 
 class Ad(models.Model):
-    name = models.CharField(max_length = 200)
-    image = models.ImageField(upload_to = 'media')
-    description = models.TextField(blank = True)
+    name = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='media')
+    description = models.TextField(blank=True)
     rank = models.IntegerField()
-    description = models.TextField(blank = True)
+    description = models.TextField(blank= True)
     status = models.CharField(choices = STATUS,max_length = 200)
 
     def __str__(self):
