@@ -24,7 +24,7 @@ class CategoryItemView(BaseView):
         self.views['cat_items'] = Item.objects.filter(category=category_id)
         return render(request, 'category.html', self.views)
 
-class BrandItemView(BaseView):
+class BrandView(BaseView):
     def get(self, request, slug):
         brand_id = Brand.objects.get(slug=slug).id
         self.views['brand_items'] = Item.objects.filter(brand=brand_id)

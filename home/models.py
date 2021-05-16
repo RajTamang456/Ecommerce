@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+
 STATUS = (('active','active'),('inactive','inactive'))
 LABEL = (('new','New'),('hot','Hot'),('','default'))
 class Category(models.Model):
@@ -54,6 +56,8 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
+    def add_to_cart(self,request):
+        return reverse('cart:add_to_cart', kwargs={'slug': slug})
 
 
 
