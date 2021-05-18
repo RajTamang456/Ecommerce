@@ -1,26 +1,46 @@
 from django.shortcuts import render, redirect
-from .models import *
+from home.models import Item
+from .models import Cart
+from home.views import *
 
 # Create your views here
-def add_to_cart(request,slug):
+def add_to_cart(request, slug):
     username = request.user.username
     price = Item.objects.get(slug=slug).price
-    quantity = Item.objects.get(slug=slug).quantity
     discounted_price = Item.objects.get(slug=slug).discounted_price
     if discounted_price > 0:
         original_price = discounted_price
     else:
         original_price = price
-    total = original_price*quantity
+    if Cart.objects.filter(username=username, slug=slug, checkout=False).exists():
+        quantity = Cart.objects.filter(username=username, slug=slug, checkout=False).quantity
+        quantity = quantity + 1
+        total = original_price * quantity
+        Cart.objects.filter(username=username, slug=slug, checkout=False).update(quanity=quantity, total=total)
+        return redirect('cart:my_cart')
+    else:
+        quantity = 1
+
+    total = original_price * quantity
 
     data = Cart.objects.create(
         username=username,
         items=Item.objects.filter(slug=slug)[0],
         slug=slug,
         quantity=quantity,
-        total=total,
+        total=total
     )
     data.save()
-    return redirect('/')
+    return redirect('cart:my_cart')
 
+class CartView(BaseView):
+    def get(self, request):
+        username = request.user.username
+        self.views['my_cart'] = Cart.objects.filter(username=username, checkout=False)
+        return render(request, 'cart.html', self.views)
+
+def delete_cart(request, slug):
+    username = request.user.username
+    Cart.objects.filter(username=username, checkout=False, slug=slug).delete()
+    return redirect('cart:my_cart')
 

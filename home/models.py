@@ -1,8 +1,9 @@
 from django.db import models
+STATUS = (('active', 'Active'), ('inactive', 'Inactive'))
+LABEL = (('new', 'New'), ('hot', 'Hot'), ('', 'default'))
 from django.urls import reverse
 
-STATUS = (('active','active'),('inactive','inactive'))
-LABEL = (('new','New'),('hot','Hot'),('','default'))
+
 class Category(models.Model):
     name = models.CharField(max_length = 200)
     logo = models.CharField(max_length = 200)
@@ -56,8 +57,8 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
-    def add_to_cart(self,request):
-        return reverse('cart:add_to_cart', kwargs={'slug': slug})
+    def add_to_cart(self):
+        return reverse('cart:add-to-cart', kwargs={'slug': self.slug})
 
 
 
