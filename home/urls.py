@@ -11,4 +11,6 @@ urlpatterns = [
     path('item_detail/<slug>', ItemDetailView.as_view(), name='item_detail'),
     path('search', ItemSearchView.as_view(), name='search'),
     path('signup', signup, name='signup'),
+    path('login', login, name='login'),
+
 ]
